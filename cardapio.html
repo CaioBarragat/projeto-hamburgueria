@@ -51,7 +51,7 @@
                     </div>
                     
                     <div class="menu-item">
-                        <img src="https://images.unsplash.com/photo-1551782450-17144efb5723?q=80&w=400&auto=format&fit=crop" alt="Smash Duplo">
+                        <img src="images/smash-duplo.jpg" alt="Smash Duplo">
                         <h3>Smash Duplo</h3>
                         <p>Pão brioche, dois blends de 180g cada, queijo cheddar duplo, bacon, ovo, alface e molho especial.</p>
                         <p class="price">R$ 35,00</p>
@@ -59,7 +59,7 @@
                     </div>
                     
                     <div class="menu-item">
-                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=400&auto=format&fit=crop" alt="Smash Vegetariano">
+                        <img src="images/smash-vegetariano.jpg" alt="Smash Vegetariano">
                         <h3>Smash Vegetariano</h3>
                         <p>Pão brioche, hambúrguer de grão-de-bico, queijo vegano, alface, tomate, cebola e molho de iogurte.</p>
                         <p class="price">R$ 22,00</p>
@@ -87,5 +87,142 @@
         </div>
     </footer>
 
+    <div id="modal-carrinho" class="modal">
+        <div class="modal-content">
+            <span class="fechar-modal">&times;</span>
+            <h2>Seu Carrinho 🛒</h2>
+            
+            <div class="itens-carrinho">
+                <p>O carrinho está vazio.</p>
+            </div>
+            
+            <hr>
+            
+            <div class="total-carrinho">
+                <strong>Total: R$ 0,00</strong>
+            </div>
+            
+            <button class="btn-finalizar">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. SELEÇÃO DOS ELEMENTOS DA TELA ---
+        const botoesAdicionar = document.querySelectorAll('.btn-primary');
+        const contadorCarrinho = document.querySelector('.contador');
+        const botaoCarrinho = document.querySelector('.btn-carrinho');
+        const modalCarrinho = document.getElementById('modal-carrinho');
+        const btnFechar = document.querySelector('.fechar-modal');
+        const conteinerItensCarrinho = document.querySelector('.itens-carrinho');
+        const elementoTotalCarrinho = document.querySelector('.total-carrinho strong');
+        const btnFinalizar = document.querySelector('.btn-finalizar');
+
+        // --- 2. NOSSA LISTA DO CARRINHO (Array vazio no começo) ---
+        let carrinho = [];
+
+        // --- 3. FUNÇÃO DE ABRIR E FECHAR O MODAL ---
+        botaoCarrinho.addEventListener('click', () => {
+            modalCarrinho.style.display = 'block';
+        });
+
+        btnFechar.addEventListener('click', () => {
+            modalCarrinho.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modalCarrinho) {
+                modalCarrinho.style.display = 'none';
+            }
+        });
+
+        // --- 4. AÇÃO DO BOTÃO "ADICIONAR AO CARRINHO" ---
+        botoesAdicionar.forEach(botao => {
+            botao.addEventListener('click', (event) => {
+                // Pega a caixa inteira do lanche (.menu-item) onde o botão está dentro
+                const caixaLanche = event.target.closest('.menu-item');
+
+                // Pega o texto do nome e do preço
+                const nomeDoLanche = caixaLanche.querySelector('h3').textContent;
+                const textoPreco = caixaLanche.querySelector('.price').textContent;
+
+                // Limpa o preço (tira o "R$ " e troca vírgula por ponto) para o JS conseguir calcular
+                const precoNumero = parseFloat(textoPreco.replace('R$ ', '').replace(',', '.'));
+
+                // Adiciona um objeto com os dados do lanche na nossa lista do carrinho
+                carrinho.push({
+                    nome: nomeDoLanche,
+                    preco: precoNumero
+                });
+
+                // Atualiza o visual do carrinho
+                atualizarCarrinho();
+
+                // Dá um feedback visual rápido
+                alert(`${nomeDoLanche} foi adicionado ao carrinho!`);
+            });
+        });
+
+        // --- 5. FUNÇÃO PARA DESENHAR O CARRINHO NA TELA E SOMAR O TOTAL ---
+        function atualizarCarrinho() {
+            // Limpa o que estava escrito antes
+            conteinerItensCarrinho.innerHTML = '';
+            let valorTotal = 0;
+
+            // Atualiza a bolinha vermelha do contador lá no topo
+            contadorCarrinho.textContent = carrinho.length;
+
+            if (carrinho.length === 0) {
+                conteinerItensCarrinho.innerHTML = '<p>O carrinho está vazio.</p>';
+                elementoTotalCarrinho.textContent = 'Total: R$ 0,00';
+                return; // Para a função por aqui
+            }
+
+            // Para cada item na nossa lista, cria uma linha no modal
+            carrinho.forEach((item, index) => {
+                valorTotal += item.preco; // Vai somando os preços
+
+                const divItem = document.createElement('div');
+                
+                // Estilo rápido via JS para alinhar os itens bonitinho
+                divItem.style.display = 'flex';
+                divItem.style.justifyContent = 'space-between';
+                divItem.style.borderBottom = '1px dashed #ccc';
+                divItem.style.padding = '10px 0';
+
+                // Cria o HTML de cada linha, com nome, preço formatado e um botão de remover
+                divItem.innerHTML = `
+                    <span style="font-weight: 600; color: #333;">${item.nome}</span>
+                    <span>R$ ${item.preco.toFixed(2).replace('.', ',')}</span>
+                    <button onclick="removerItem(${index})" style="background:none; border:none; cursor:pointer; font-size:16px;" title="Remover item">❌</button>
+                `;
+                
+                conteinerItensCarrinho.appendChild(divItem);
+            });
+
+            // Atualiza o texto do Total formatando de volta para Real (R$)
+            elementoTotalCarrinho.textContent = `Total: R$ ${valorTotal.toFixed(2).replace('.', ',')}`;
+        }
+
+        // --- 6. FUNÇÃO PARA REMOVER ITEM (Clica no Xzinho) ---
+        window.removerItem = function(index) {
+            // Remove 1 item da lista na posição (index) que foi clicada
+            carrinho.splice(index, 1);
+            // Desenha o carrinho de novo (agora sem o item)
+            atualizarCarrinho();
+        };
+
+        // --- 7. FINALIZAR COMPRA ---
+        btnFinalizar.addEventListener('click', () => {
+            if (carrinho.length === 0) {
+                alert('Seu carrinho está vazio!');
+            } else {
+                let total = carrinho.reduce((sum, item) => sum + item.preco, 0);
+                alert(`Compra finalizada! Total: R$ ${total.toFixed(2).replace('.', ',')}`);
+                carrinho = [];
+                atualizarCarrinho();
+                modalCarrinho.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
