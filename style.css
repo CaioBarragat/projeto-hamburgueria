@@ -366,7 +366,7 @@ body {
 
 /* Esconde o modal por padrão para não aparecer no fim da página */
 .modal {
-    display: none; 
+    display: none; /* O JavaScript mudará para 'flex' ao abrir */
     position: fixed;
     z-index: 2000;
     left: 0;
@@ -374,7 +374,10 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    overflow-y: auto; /* Permite rolar a tela se o modal for muito grande */
+
+    /* ESTAS LINHAS PUXAM PARA O MEIO */
+    align-items: center;     /* Centraliza verticalmente */
+    justify-content: center;  /* Centraliza horizontalmente */
 }
 
 .modal-content {
@@ -382,14 +385,12 @@ body {
     padding: 20px;
     border-radius: 15px;
     width: 90%;
-    max-width: 500px;
-    
-    /* SOLUÇÃO PARA O CONTEÚDO FORA: */
-    max-height: 85vh; /* Define que o modal não pode ser maior que 85% da tela */
-    overflow-y: auto; /* Adiciona uma barra de rolagem interna se precisar */
+    max-width: 450px; /* Largura ideal para telemóveis e PC */
+    max-height: 85vh; /* Ocupa no máximo 85% da altura da tela */
+    overflow-y: auto; /* Cria o scroll se o conteúdo for grande */
+    position: relative;
     display: flex;
     flex-direction: column;
-    position: relative;
 }
 
 /* Apenas a lista de itens cresce e rola */

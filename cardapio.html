@@ -377,27 +377,6 @@ finalizarBtn.addEventListener('click', () => {
     document.getElementById('bairro').value = '';
     modalCarrinho.style.display = 'none';
 });
-// Seleciona o botão laranja lá de cima
-const botaoAbrirCarrinho = document.querySelector('.btn-carrinho');
-const modalC = document.getElementById('modal-carrinho');
-const fecharX = document.querySelector('.fechar-modal');
-
-// Faz o botão laranja abrir o modal
-botaoAbrirCarrinho.addEventListener('click', () => {
-    modalC.style.display = 'flex';
-});
-
-// Faz o X fechar o modal
-fecharX.addEventListener('click', () => {
-    modalC.style.display = 'none';
-});
-
-// Fecha se clicar fora da janelinha branca
-window.addEventListener('click', (event) => {
-    if (event.target === modalC) {
-        modalC.style.display = 'none';
-    }
-});
     </script>
 
 <div id="toast">Produto adicionado ao carrinho! 🍟</div>
