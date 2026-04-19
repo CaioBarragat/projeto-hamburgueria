@@ -220,11 +220,24 @@
         let carrinho = [];
 
         // --- FUNÇÃO DO TOAST ---
-        function showToast(mensagem) {
+        function showToast(mensagem, tipo = 'success') {
             const toast = document.getElementById("toast");
-            toast.textContent = mensagem; // Define o texto (ex: "Batata P adicionada!")
-            toast.className = "show";
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            
+            // 1. Limpa qualquer classe de cor ou animação que já existia (reseta o bug)
+            toast.classList.remove("show", "success", "warning");
+            
+            // Força o navegador a "notar" que as classes foram removidas antes de colocar de novo
+            void toast.offsetWidth; 
+
+            // 2. Define a nova mensagem e as novas cores
+            toast.textContent = mensagem;
+            toast.classList.add(tipo);
+            toast.classList.add("show");
+            
+            // 3. Define o tempo para sumir
+            setTimeout(() => { 
+                toast.classList.remove("show");
+            }, 3000);
         }
 
 // --- FUNÇÃO DE ABRIR E FECHAR O MODAL ---
@@ -348,13 +361,17 @@ finalizarBtn.addEventListener('click', () => {
     const bairro = document.getElementById('bairro').value;
 
     if (carrinho.length === 0) {
-        showToast('Seu carrinho está vazio!');
+        showToast('Seu carrinho está vazio!', 'warning');
         return;
     }
 
     // Validação dos campos obrigatórios
-    if (nome === "" || cep === "" || numero === "" || rua === "" || bairro === "") {
-        showToast('Por favor, preencha todos os campos obrigatórios!');
+    if (nome === "" || cep === "" || numero === "") {
+        // DISPARA O AVISO NO CANTO INFERIOR
+        showToast("⚠️ Preencha os campos vazios acima!", "warning");
+        
+        // Faz o modal subir sozinho para mostrar os campos
+        document.querySelector('.modal-content').scrollTo({ top: 0, behavior: 'smooth' });
         return;
     }
 
@@ -376,6 +393,39 @@ finalizarBtn.addEventListener('click', () => {
     document.getElementById('rua').value = '';
     document.getElementById('bairro').value = '';
     modalCarrinho.style.display = 'none';
+});
+
+// --- FUNÇÃO PARA BUSCAR CEP AUTOMATICAMENTE ---
+document.getElementById('cep').addEventListener('blur', function() {
+    // Remove qualquer caractere que não seja número
+    let cep = this.value.replace(/\D/g, '');
+
+    // Verifica se o CEP tem exatamente 8 dígitos
+    if (cep.length === 8) {
+        // Preenche com "..." para dar feedback de carregamento
+        document.getElementById('rua').value = "...";
+        document.getElementById('bairro').value = "...";
+
+        // Consulta a API gratuita ViaCEP
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(dados => {
+                if (!dados.erro) {
+                    // Preenche os campos com o que a API retornou
+                    document.getElementById('rua').value = dados.logradouro;
+                    document.getElementById('bairro').value = dados.bairro;
+                    // Pula direto para o campo de Número para facilitar
+                    document.getElementById('numero').focus();
+                } else {
+                    alert("CEP não encontrado.");
+                    document.getElementById('rua').value = "";
+                    document.getElementById('bairro').value = "";
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao buscar CEP:", error);
+            });
+    }
 });
     </script>
 
