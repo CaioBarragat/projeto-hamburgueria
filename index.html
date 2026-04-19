@@ -12,7 +12,7 @@
     <header class="header">
         <div class="container header-content">
             <a href="#" class="logo">🍔 Hamburgueria<span> Delicia</span></a>
-            
+            <button class="menu-mobile-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
             <nav class="navbar">
                 <ul class="nav-links">
                     <li><a href="#home">Início</a></li>
@@ -22,7 +22,7 @@
             </nav>
             
             <button class="btn-carrinho" aria-label="Abrir carrinho">
-                🛒 Carrinho <span class="contador">0</span>
+                🛒 Carrinho <span id="cart-count" aria-live="polite">0</span>
             </button>
         </div>
     </header>
@@ -59,12 +59,12 @@
         <div class="container footer-content">
             <div class="footer-info">
                 <h3>Hamburgueria Delicia</h3>
-                <p>Rua do Sabor, 123 - Centro, São Paulo/SP</p>
+                <p>Rua do Sabor, 67 - Várzea, Teresópolis/RJ</p>
                 <p>Aberto de Terça a Domingo, das 18h às 23:30h</p>
             </div>
             <div class="footer-social">
                 <p>Siga-nos nas redes sociais</p>
-                <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">TikTok</a>
+                <a href="#">Instagram</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -72,5 +72,23 @@
         </div>
     </footer>
 
+    <script>
+        const btnMobile = document.querySelector('.menu-mobile-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        btnMobile.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('active');
+            btnMobile.setAttribute('aria-expanded', isOpen);
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    btnMobile.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -12,7 +12,7 @@
     <header class="header">
         <div class="container header-content">
             <a href="index.html" class="logo">🍔 Hamburgueria<span> Delicia</span></a>
-            
+            <button class="menu-mobile-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
             <nav class="navbar">
                 <ul class="nav-links">
                     <li><a href="index.html#home">Início</a></li>
@@ -22,64 +22,131 @@
             </nav>
             
             <button class="btn-carrinho" aria-label="Abrir carrinho">
-                🛒 Carrinho <span class="contador">0</span>
+                🛒 Carrinho <span id="cart-count" aria-live="polite">0</span>
             </button>
         </div>
     </header>
-
-    <main>
-        <section class="cardapio">
-            <div class="container">
-                <h1>Nosso Cardápio</h1>
-                <p>Escolha seu smash burger favorito!</p>
+<main>
+    <section class="cardapio">
+        <div class="container">
+            <h1>Nosso Cardápio</h1>
+            <p>Escolha seu smash burger favorito!</p>
+            
+            <h2 class="category-title">🍔 Hambúrgueres</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=400&auto=format&fit=crop" alt="Smash Clássico">
+                    <h3>Smash Clássico</h3>
+                    <p>Pão brioche, blend 180g, queijo cheddar, alface, tomate, cebola roxa e molho especial.</p>
+                    <p class="price">R$ 25,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
                 
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=400&auto=format&fit=crop" alt="Smash Clássico">
-                        <h3>Smash Clássico</h3>
-                        <p>Pão brioche, blend 180g, queijo cheddar, alface, tomate, cebola roxa e molho especial.</p>
-                        <p class="price">R$ 25,00</p>
-                        <button class="btn-primary">Adicionar ao Carrinho</button>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=400&auto=format&fit=crop" alt="Smash Bacon">
-                        <h3>Smash Bacon</h3>
-                        <p>Pão brioche, blend 180g, queijo cheddar, bacon crocante, cebola caramelizada e molho barbecue.</p>
-                        <p class="price">R$ 28,00</p>
-                        <button class="btn-primary">Adicionar ao Carrinho</button>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <img src="images/smash-duplo.jpg" alt="Smash Duplo">
-                        <h3>Smash Duplo</h3>
-                        <p>Pão brioche, dois blends de 180g cada, queijo cheddar duplo, bacon, ovo, alface e molho especial.</p>
-                        <p class="price">R$ 35,00</p>
-                        <button class="btn-primary">Adicionar ao Carrinho</button>
-                    </div>
-                    
-                    <div class="menu-item">
-                        <img src="images/smash-vegetariano.jpg" alt="Smash Vegetariano">
-                        <h3>Smash Vegetariano</h3>
-                        <p>Pão brioche, hambúrguer de grão-de-bico, queijo vegano, alface, tomate, cebola e molho de iogurte.</p>
-                        <p class="price">R$ 22,00</p>
-                        <button class="btn-primary">Adicionar ao Carrinho</button>
-                    </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=400&auto=format&fit=crop" alt="Smash Bacon">
+                    <h3>Smash Bacon</h3>
+                    <p>Pão brioche, blend 180g, queijo cheddar, bacon crocante, cebola caramelizada e molho barbecue.</p>
+                    <p class="price">R$ 28,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="images/smash-duplo.jpg" alt="Smash Duplo">
+                    <h3>Smash Duplo</h3>
+                    <p>Pão brioche, dois blends de 180g cada, queijo cheddar duplo, bacon, ovo, alface e molho especial.</p>
+                    <p class="price">R$ 35,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="images/smash-vegetariano.jpg" alt="Smash Vegetariano">
+                    <h3>Smash Vegetariano</h3>
+                    <p>Pão brioche, hambúrguer de grão-de-bico, queijo vegano, alface, tomate, cebola e molho de iogurte.</p>
+                    <p class="price">R$ 22,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
                 </div>
             </div>
-        </section>
-    </main>
+
+            <h2 class="category-title">🍟 Combos</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=400&auto=format&fit=crop" alt="Combo 1">
+                    <h3>Combo Individual</h3>
+                    <p>1 Smash Clássico + Batata Frita M + Refrigerante Lata.</p>
+                    <p class="price">R$ 42,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <h2 class="category-title">🥤 Bebidas</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=400&auto=format&fit=crop" alt="Coca-Cola">
+                    <h3>Refrigerante Lata</h3>
+                    <p>Coca-Cola, Guaraná ou Fanta (350ml).</p>
+                    <p class="price">R$ 6,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=400&auto=format&fit=crop" alt="Suco">
+                    <h3>Suco Natural</h3>
+                    <p>Laranja ou Limão (500ml).</p>
+                    <p class="price">R$ 10,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+
+            <h2 class="category-title">🍟 Porções de Batata</h2>
+            <div class="menu-items">
+                
+                <div class="menu-item">
+                    <img src="images/batataP.jpg" alt="Batata Frita P">
+                    <h3>Batata Frita P</h3>
+                    <p>Porção individual crocante e sequinha.</p>
+                    <p class="price">R$ 12,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="images/batataM.jpg" alt="Batata Frita M">
+                    <h3>Batata Frita M</h3>
+                    <p>Porção média, ideal para dividir com um amigo.</p>
+                    <p class="price">R$ 18,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="images/batataG.jpg" alt="Batata Frita G">
+                    <h3>Batata Frita G</h3>
+                    <p>Porção grande, perfeita para a galera toda.</p>
+                    <p class="price">R$ 24,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="images/batata-cheddar-bacon.jpg" alt="Batata Cheddar e Bacon">
+                    <h3>Batata Cheddar & Bacon</h3>
+                    <p>Nossa batata especial com cheddar derretido e bacon crocante.</p>
+                    <p class="price">R$ 32,00</p>
+                    <button class="btn-primary">Adicionar ao Carrinho</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+    
 
     <footer class="footer">
         <div class="container footer-content">
             <div class="footer-info">
                 <h3>Hamburgueria Delicia</h3>
-                <p>Rua do Sabor, 123 - Centro, São Paulo/SP</p>
+                <p>Rua do Sabor, 67 - Várzea, Teresópolis/RJ</p>
                 <p>Aberto de Terça a Domingo, das 18h às 23:30h</p>
             </div>
             <div class="footer-social">
                 <p>Siga-nos nas redes sociais</p>
-                <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">TikTok</a>
+                <a href="#">Instagram</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -87,29 +154,61 @@
         </div>
     </footer>
 
-    <div id="modal-carrinho" class="modal">
-        <div class="modal-content">
-            <span class="fechar-modal">&times;</span>
-            <h2>Seu Carrinho 🛒</h2>
-            
-            <div class="itens-carrinho">
-                <p>O carrinho está vazio.</p>
+<div id="modal-carrinho" class="modal">
+    <div class="modal-content">
+        <span class="fechar-modal">&times;</span>
+        <h2>Seu Carrinho 🛒</h2>
+        
+        <div class="itens-carrinho">
             </div>
-            
+        
+        <div class="rodape-modal">
+            <p class="total-carrinho"><strong>Total: R$ 0,00</strong></p>
             <hr>
-            
-            <div class="total-carrinho">
-                <strong>Total: R$ 0,00</strong>
+            <div class="checkout-form">
+                <h3>Finalizar Pedido</h3>
+                
+                <div class="form-group">
+                    <label for="nome-cliente">Nome Completo:</label>
+                    <input type="text" id="nome-cliente" placeholder="Como podemos te chamar?" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Endereço de Entrega:</label>
+                    <div class="form-row">
+                        <input type="text" id="cep" placeholder="CEP" style="flex: 2;">
+                        <input type="text" id="numero" placeholder="Nº" style="flex: 1;">
+                    </div>
+                    
+                    <input type="text" id="rua" placeholder="Nome da Rua/Logradouro">
+                    
+                    <div class="form-row">
+                        <input type="text" id="bairro" placeholder="Bairro" style="flex: 1;">
+                        <input type="text" id="complemento" placeholder="Apto/Bloco" style="flex: 1;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="metodo-pagamento">Forma de Pagamento:</label>
+                    <select id="metodo-pagamento">
+                        <option value="cartao">Cartão de Crédito/Débito</option>
+                        <option value="pix">Pix</option>
+                        <option value="dinheiro">Dinheiro</option>
+                    </select>
+                </div>
+
+                <button id="finalizar-btn" class="btn-finalizar">Finalizar Compra</button>
             </div>
-            
-            <button class="btn-finalizar">Finalizar Compra</button>
         </div>
     </div>
+</div>
+
+    
 
     <script>
         // --- 1. SELEÇÃO DOS ELEMENTOS DA TELA ---
         const botoesAdicionar = document.querySelectorAll('.btn-primary');
-        const contadorCarrinho = document.querySelector('.contador');
+        const contadorCarrinho = document.getElementById('cart-count');
         const botaoCarrinho = document.querySelector('.btn-carrinho');
         const modalCarrinho = document.getElementById('modal-carrinho');
         const btnFechar = document.querySelector('.fechar-modal');
@@ -120,20 +219,30 @@
         // --- 2. NOSSA LISTA DO CARRINHO (Array vazio no começo) ---
         let carrinho = [];
 
-        // --- 3. FUNÇÃO DE ABRIR E FECHAR O MODAL ---
-        botaoCarrinho.addEventListener('click', () => {
-            modalCarrinho.style.display = 'block';
-        });
+        // --- FUNÇÃO DO TOAST ---
+        function showToast(mensagem) {
+            const toast = document.getElementById("toast");
+            toast.textContent = mensagem; // Define o texto (ex: "Batata P adicionada!")
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
 
-        btnFechar.addEventListener('click', () => {
-            modalCarrinho.style.display = 'none';
-        });
+// --- FUNÇÃO DE ABRIR E FECHAR O MODAL ---
+botaoCarrinho.addEventListener('click', () => {
+    // Note que o nome da variável deve ser igual ao que você definiu no topo (modalCarrinho)
+    modalCarrinho.style.display = 'flex'; 
+});
 
-        window.addEventListener('click', (event) => {
-            if (event.target === modalCarrinho) {
-                modalCarrinho.style.display = 'none';
-            }
-        });
+btnFechar.addEventListener('click', () => {
+    modalCarrinho.style.display = 'none';
+});
+
+// Fecha o modal ao clicar na parte escura (fundo)
+window.addEventListener('click', (event) => {
+    if (event.target === modalCarrinho) {
+        modalCarrinho.style.display = 'none';
+    }
+});
 
         // --- 4. AÇÃO DO BOTÃO "ADICIONAR AO CARRINHO" ---
         botoesAdicionar.forEach(botao => {
@@ -158,7 +267,7 @@
                 atualizarCarrinho();
 
                 // Dá um feedback visual rápido
-                alert(`${nomeDoLanche} foi adicionado ao carrinho!`);
+                showToast(`${nomeDoLanche} foi adicionado ao carrinho!`);
             });
         });
 
@@ -211,18 +320,86 @@
             atualizarCarrinho();
         };
 
-        // --- 7. FINALIZAR COMPRA ---
-        btnFinalizar.addEventListener('click', () => {
-            if (carrinho.length === 0) {
-                alert('Seu carrinho está vazio!');
-            } else {
-                let total = carrinho.reduce((sum, item) => sum + item.preco, 0);
-                alert(`Compra finalizada! Total: R$ ${total.toFixed(2).replace('.', ',')}`);
-                carrinho = [];
-                atualizarCarrinho();
-                modalCarrinho.style.display = 'none';
-            }
-        });
+        // --- LÓGICA DO MENU MOBILE ---
+const btnMobile = document.querySelector('.menu-mobile-btn');
+const navLinks = document.querySelector('.nav-links');
+
+btnMobile.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('active');
+    btnMobile.setAttribute('aria-expanded', isOpen);
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            btnMobile.setAttribute('aria-expanded', 'false');
+        }
+    });
+});
+
+// --- LÓGICA DE FINALIZAR COM VALIDAÇÃO ---
+const finalizarBtn = document.getElementById('finalizar-btn');
+finalizarBtn.addEventListener('click', () => {
+    const nome = document.getElementById('nome-cliente').value;
+    const cep = document.getElementById('cep').value;
+    const numero = document.getElementById('numero').value;
+    const rua = document.getElementById('rua').value;
+    const bairro = document.getElementById('bairro').value;
+
+    if (carrinho.length === 0) {
+        showToast('Seu carrinho está vazio!');
+        return;
+    }
+
+    // Validação dos campos obrigatórios
+    if (nome === "" || cep === "" || numero === "" || rua === "" || bairro === "") {
+        showToast('Por favor, preencha todos os campos obrigatórios!');
+        return;
+    }
+
+    // Monta o endereço completo
+    const enderecoCompleto = `${rua}, ${numero}, ${bairro} - CEP: ${cep}`;
+
+    // Se chegar aqui, está tudo certo
+    let total = carrinho.reduce((sum, item) => sum + item.preco, 0);
+    showToast(`Obrigado, ${nome}! Seu pedido de R$ ${total.toFixed(2).replace('.', ',')} está sendo preparado e será enviado para: ${enderecoCompleto}`);
+    
+    // Limpa tudo
+    carrinho = [];
+    atualizarCarrinho();
+    // Limpa os campos do formulário
+    document.getElementById('nome-cliente').value = '';
+    document.getElementById('cep').value = '';
+    document.getElementById('numero').value = '';
+    document.getElementById('complemento').value = '';
+    document.getElementById('rua').value = '';
+    document.getElementById('bairro').value = '';
+    modalCarrinho.style.display = 'none';
+});
+// Seleciona o botão laranja lá de cima
+const botaoAbrirCarrinho = document.querySelector('.btn-carrinho');
+const modalC = document.getElementById('modal-carrinho');
+const fecharX = document.querySelector('.fechar-modal');
+
+// Faz o botão laranja abrir o modal
+botaoAbrirCarrinho.addEventListener('click', () => {
+    modalC.style.display = 'flex';
+});
+
+// Faz o X fechar o modal
+fecharX.addEventListener('click', () => {
+    modalC.style.display = 'none';
+});
+
+// Fecha se clicar fora da janelinha branca
+window.addEventListener('click', (event) => {
+    if (event.target === modalC) {
+        modalC.style.display = 'none';
+    }
+});
     </script>
+
+<div id="toast">Produto adicionado ao carrinho! 🍟</div>
 </body>
 </html>
