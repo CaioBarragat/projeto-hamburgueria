@@ -101,6 +101,46 @@ body {
     margin-left: 5px;
 }
 
+/* --- DARK MODE --- */
+
+body.dark-mode {
+    --text-color: #f1f1f1;
+    --bg-light: #121212;
+    --white: #1e1e1e;
+    --dark-color: #f8f9fa;
+}
+
+.btn-dark-mode {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.btn-dark-mode:hover {
+    transform: scale(1.1);
+}
+
+/* --- CORREÇÃO DE CONTRASTE NO DARK MODE --- */
+
+body.dark-mode, 
+body.dark-mode p, 
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode span, 
+body.dark-mode label,
+body.dark-mode a {
+    color: #f1f1f1 !important; /* Texto branco-acinzentado para não cansar a vista */
+}
+
+/* Garante que links não fiquem "apagados" também */
+body.dark-mode a:hover {
+    color: var(--secondary-color) !important;
+}
+
 /* --- HERO SECTION --- */
 .hero {
     background-color: var(--bg-light);
@@ -243,7 +283,44 @@ body {
 .cardapio > .container > p {
     text-align: center;
     font-size: 1.2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+}
+
+/* --- BARRA DE PESQUISA --- */
+.search-container {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 0 20px;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 500px;
+    padding: 15px 25px;
+    font-size: 1rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 30px; /* Bordas arredondadas */
+    outline: none;
+    font-family: var(--font-main);
+    color: var(--dark-color);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(230, 57, 70, 0.2); /* Brilho vermelho ao clicar */
+}
+
+/* --- CORREÇÃO DA BARRA DE PESQUISA NO DARK MODE --- */
+body.dark-mode #search-input {
+    background-color: #3d3d3d !important; /* Fundo cinza escuro para a barra */
+    color: #ffffff !important;           /* Texto branco */
+    border: 1px solid #555 !important;    /* Borda suave */
+}
+
+/* Garante que o texto de dica (placeholder) fique visível */
+body.dark-mode #search-input::placeholder {
+    color: #aaaaaa !important;
 }
 
 .menu-items {
@@ -393,11 +470,59 @@ body {
     flex-direction: column;
 }
 
+.cart-modal {
+    background-color: var(--white);
+}
+
+/* --- CORREÇÃO DO CARRINHO NO DARK MODE --- */
+/* Certifique-se de usar a classe correta que você deu ao seu carrinho no HTML */
+body.dark-mode .cart-modal,
+body.dark-mode .modal-carrinho,
+body.dark-mode .carrinho-conteudo {
+    background-color: #1e1e1e !important; /* Fundo escuro */
+    color: #f1f1f1 !important;           /* Texto claro */
+}
+
+/* Caso existam títulos ou botões dentro do carrinho que continuam escuros */
+body.dark-mode .cart-modal h2,
+body.dark-mode .cart-modal p,
+body.dark-mode .cart-modal span {
+    color: #f1f1f1 !important;
+}
+
 /* Apenas a lista de itens cresce e rola */
 .itens-carrinho {
     flex-grow: 1;
     overflow-y: auto;
     margin: 15px 0;
+}
+
+/* --- CORREÇÃO DEFINITIVA DO MODAL NO DARK MODE --- */
+body.dark-mode .modal-content {
+    background-color: #2c2c2c !important; /* Um cinza bem escuro, mas não preto total */
+    color: #ffffff !important;           /* Texto branco para garantir leitura */
+    border: 1px solid #444;              /* Uma borda suave para destacar */
+}
+
+/* Garante que os títulos dentro do modal fiquem legíveis */
+body.dark-mode .modal-content h2, 
+body.dark-mode .modal-content h3,
+body.dark-mode .modal-content label,
+body.dark-mode .modal-content p {
+    color: #ffffff !important;
+}
+
+/* Ajuste nos campos de input para não ficarem "invisíveis" */
+body.dark-mode .checkout-form input, 
+body.dark-mode .checkout-form select {
+    background-color: #3d3d3d !important;
+    color: #ffffff !important;
+    border: 1px solid #555 !important;
+}
+
+/* Placeholder (texto de dica) também precisa ficar claro */
+body.dark-mode .checkout-form input::placeholder {
+    color: #bbbbbb !important;
 }
 
 /* Deixa a barra de rolagem da lista mais bonitinha (opcional) */

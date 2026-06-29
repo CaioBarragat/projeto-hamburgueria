@@ -21,6 +21,8 @@
                 </ul>
             </nav>
             
+            <button id="dark-mode-toggle" class="btn-dark-mode" aria-label="Alternar Tema">🌙</button>
+            
             <button class="btn-carrinho" aria-label="Abrir carrinho">
                 🛒 Carrinho <span id="cart-count" aria-live="polite">0</span>
             </button>
@@ -31,6 +33,12 @@
         <div class="container">
             <h1>Nosso Cardápio</h1>
             <p>Escolha seu smash burger favorito!</p>
+            
+            <!-- CÓDIGO DA BARRA DE PESQUISA -->
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Pesquisar lanche, bebida ou porção..." aria-label="Pesquisar">
+            </div>
+            <!-- FIM DO CÓDIGO DA BARRA DE PESQUISA -->
             
             <h2 class="category-title">🍔 Hambúrgueres</h2>
             <div class="menu-items">
@@ -163,7 +171,7 @@
             </div>
         
         <div class="rodape-modal">
-            <p class="total-carrinho"><strong>Total: R$ 0,00</strong></p>
+            <p id="total-carrinho" class="total-carrinho"><strong>Total: R$ 0,00</strong></p>
             <hr>
             <div class="checkout-form">
                 <h3>Finalizar Pedido</h3>
@@ -196,6 +204,12 @@
                         <option value="dinheiro">Dinheiro</option>
                     </select>
                 </div>
+
+                <div class="cupom-container">
+                    <input type="text" id="cupom-input" placeholder="Código do cupom">
+                    <button type="button" onclick="aplicarCupom()">Aplicar</button>
+                </div>
+                <p id="mensagem-cupom"></p>
 
                 <button id="finalizar-btn" class="btn-finalizar">Finalizar Compra</button>
             </div>
@@ -325,6 +339,38 @@ window.addEventListener('click', (event) => {
             elementoTotalCarrinho.textContent = `Total: R$ ${valorTotal.toFixed(2).replace('.', ',')}`;
         }
 
+        function calcularTotal() {
+            return carrinho.reduce((sum, item) => sum + item.preco, 0);
+        }
+
+        function aplicarCupom() {
+            // Remove todos os espaços e garante que está em maiúsculo
+            const inputCupom = document.getElementById('cupom-input').value.toUpperCase().replace(/\s+/g, '');
+            const mensagem = document.getElementById('mensagem-cupom');
+            
+            let total = calcularTotal(); 
+
+            // Aqui fizemos a troca: "PRIMEIRACOMPRA" agora é "CAIO"
+            const cuponsValidos = {
+                "CAIO": 0.50,            // 50% de desconto
+                "LAURA": 0.01            // 1% de desconto
+            };
+
+            if (cuponsValidos[inputCupom] !== undefined) {
+                const percentualDesconto = cuponsValidos[inputCupom];
+                const valorDesconto = total * percentualDesconto;
+                const novoTotal = total - valorDesconto;
+
+                mensagem.textContent = "Cupom aplicado! Desconto de " + (percentualDesconto * 100) + "%.";
+                mensagem.style.color = "green";
+                
+                document.getElementById('total-carrinho').textContent = "R$ " + novoTotal.toFixed(2);
+            } else {
+                mensagem.textContent = "Cupom inválido!";
+                mensagem.style.color = "red";
+            }
+        }
+
         // --- 6. FUNÇÃO PARA REMOVER ITEM (Clica no Xzinho) ---
         window.removerItem = function(index) {
             // Remove 1 item da lista na posição (index) que foi clicada
@@ -332,6 +378,56 @@ window.addEventListener('click', (event) => {
             // Desenha o carrinho de novo (agora sem o item)
             atualizarCarrinho();
         };
+
+        // --- LÓGICA DA BARRA DE PESQUISA (IGNORANDO ACENTOS) ---
+        const campoPesquisa = document.getElementById('search-input');
+        const itensDoCardapio = document.querySelectorAll('.menu-item');
+
+        function removerAcentos(texto) {
+            return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+        }
+
+        if (campoPesquisa) {
+            campoPesquisa.addEventListener('input', function() {
+                const termoDigitado = removerAcentos(this.value.toLowerCase());
+
+                itensDoCardapio.forEach(item => {
+                    const textoProduto = item.querySelector('h3').textContent.toLowerCase();
+                    const nomeDoProduto = removerAcentos(textoProduto);
+
+                    if (nomeDoProduto.includes(termoDigitado)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // --- LÓGICA DO DARK MODE ---
+        const darkModeBtn = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+
+        const isDarkMode = localStorage.getItem('modoEscuro') === 'true';
+
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+            if (darkModeBtn) darkModeBtn.textContent = '☀️';
+        }
+
+        if (darkModeBtn) {
+            darkModeBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('modoEscuro', 'true');
+                    darkModeBtn.textContent = '☀️';
+                } else {
+                    localStorage.setItem('modoEscuro', 'false');
+                    darkModeBtn.textContent = '🌙';
+                }
+            });
+        }
 
         // --- LÓGICA DO MENU MOBILE ---
 const btnMobile = document.querySelector('.menu-mobile-btn');

@@ -21,6 +21,8 @@
                 </ul>
             </nav>
             
+            <button id="dark-mode-toggle" class="btn-dark-mode" aria-label="Alternar Tema">🌙</button>
+            
             <button class="btn-carrinho" aria-label="Abrir carrinho">
                 🛒 Carrinho <span id="cart-count" aria-live="polite">0</span>
             </button>
@@ -89,6 +91,31 @@
                 }
             });
         });
+
+        // --- LÓGICA DO DARK MODE ---
+        const darkModeBtn = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+
+        const isDarkMode = localStorage.getItem('modoEscuro') === 'true';
+
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+            if (darkModeBtn) darkModeBtn.textContent = '☀️';
+        }
+
+        if (darkModeBtn) {
+            darkModeBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('modoEscuro', 'true');
+                    darkModeBtn.textContent = '☀️';
+                } else {
+                    localStorage.setItem('modoEscuro', 'false');
+                    darkModeBtn.textContent = '🌙';
+                }
+            });
+        }
     </script>
 </body>
 </html>
